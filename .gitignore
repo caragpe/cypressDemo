@@ -1,4 +1,5 @@
 cypress/integration/examples
 node_modules
 *.log
+.idea
 cypress/fixtures/example.json
