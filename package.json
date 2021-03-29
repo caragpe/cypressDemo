@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "cypress": "^6.8.0",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-chai-friendly": "^0.6.0",
+    "eslint-plugin-cypress": "^2.11.2",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.3"
+  },
+  "scripts": {
+    "start": "cypress open",
+    "lint": "npx eslint --ignore-pattern 'cypress/integration/examples/*.js' --ignore-pattern 'cypress/.eslintrc.js' --ext .ts,.js . "
+  }
+}
