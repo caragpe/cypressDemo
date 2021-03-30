@@ -10,7 +10,9 @@ import {
 } from '../../support/pages/primesMedian';
 
 import {
+  edgeCaseResultResponse,
   testData,
+  testEdgeData,
   testDataType,
   resultsResponseArray,
   resultsResponseMessage,
@@ -34,8 +36,6 @@ describe('Demo Prime Median Calculator', () => {
   context('Calculations', () => {
     const availableTestCases = (testData: testDataType) => {
       it(`prime median for input ${testData.input}`, () => {
-        isInputFieldVisible();
-        isSubmitButtonVisible();
         insertValue(testData.input.toString());
         requestCalculation();
         getCalculationResults()
@@ -48,8 +48,30 @@ describe('Demo Prime Median Calculator', () => {
       });
     };
 
+    const availableEdgeCases = (testEdgeData: testDataType) => {
+      it(`edge case for input ${testEdgeData.input}`, () => {
+        insertValue(testEdgeData.input.toString());
+        requestCalculation();
+        if (isInRange(testEdgeData.input)) {
+          getCalculationResults()
+            .invoke('text')
+            .should((result) => {
+              expect(result).to.match(edgeCaseResultResponse);
+            });
+        }
+      });
+    };
+
     testData.map((item: testDataType) => {
-      item.isEnabled && availableTestCases(item);
+      item.isEnabled && !item.isEdgeCase && availableTestCases(item);
+    });
+
+    testEdgeData.map((item: testDataType) => {
+      item.isEnabled && item.isEdgeCase && availableEdgeCases(item);
     });
   });
 });
+
+const isInRange = (value: number, upperLimit = 100, lowerLimit = -100): boolean => {
+  return value >= lowerLimit && value <= upperLimit;
+};
