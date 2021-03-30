@@ -12,11 +12,11 @@ const submitSelector = (): string => `${containerSelector()} ${submitButton}`;
 const loadingSelector = (): string => `${containerSelector()} ${waitingToCalculateSpinner}`;
 const resultsSelector = (): string => `${containerSelector()} ${resultMessage}`;
 
-export const isSubmitButtonVisible = () => cy.get(submitSelector());
-export const isInputFieldVisible = () => cy.get(inputSelector());
-export const isLoadingSpinnerVisible = () => getLoadingSpinner().should('not.be.visible');
-export const requestCalculation = () => isSubmitButtonVisible().click();
-export const getWelcomeMessage = () => cy.get(containerHeaderSelector());
-export const insertValue = (param: string) => cy.get(inputSelector()).type(param);
-export const getLoadingSpinner = () => cy.get(loadingSelector());
-export const getCalculationResults = () => cy.get(resultsSelector());
+export const isSubmitButtonVisible = (): Cypress.Chainable<JQuery> => cy.get(submitSelector());
+export const isInputFieldVisible = (): Cypress.Chainable<JQuery> => cy.get(inputSelector());
+export const requestCalculation = (): Cypress.Chainable<JQuery> => isSubmitButtonVisible().click();
+export const getWelcomeMessage = (): Cypress.Chainable<JQuery> => cy.get(containerHeaderSelector());
+export const insertValue = (param: string): Cypress.Chainable<JQuery> =>
+  cy.get(inputSelector()).type(param);
+export const getLoadingSpinner = (): Cypress.Chainable<JQuery> => cy.get(loadingSelector());
+export const getCalculationResults = (): Cypress.Chainable<JQuery> => cy.get(resultsSelector());

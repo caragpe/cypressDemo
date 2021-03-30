@@ -5,7 +5,6 @@
     "eslint:recommended",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:chai-friendly/recommended",
     "plugin:cypress/recommended",
     "prettier"
   ],
@@ -19,7 +18,8 @@
         "trailingComma": "all",
         "bracketSpacing": true,
         "semi": true,
-        "useTabs": false
+        "useTabs": false,
+        "parser": "flow"
       }
     ]
   }

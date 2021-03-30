@@ -5,22 +5,51 @@ import {
   getWelcomeMessage,
   insertValue,
   isInputFieldVisible,
-  isLoadingSpinnerVisible,
   isSubmitButtonVisible,
   requestCalculation,
 } from '../../support/pages/primesMedian';
 
-import { welcomeMessageText } from '../../support/testData/primeMedian.data';
+import {
+  testData,
+  testDataType,
+  resultsResponseArray,
+  resultsResponseMessage,
+  componentMessage,
+} from '../../support/testData/primeMedian.data';
 
-context('Actions', () => {
+describe('Demo Prime Median Calculator', () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  it('renders all  the input form', () => {
-    getWelcomeMessage().should('contain.text', welcomeMessageText);
-    isLoadingSpinnerVisible();
-    isInputFieldVisible();
-    isSubmitButtonVisible();
+  context('Component', () => {
+    it('renders all input form fields', () => {
+      getWelcomeMessage().should('contain.text', componentMessage);
+      getLoadingSpinner().should('not.be.visible');
+      isInputFieldVisible();
+      isSubmitButtonVisible();
+    });
+  });
+
+  context('Calculations', () => {
+    const availableTestCases = (testData: testDataType) => {
+      it(`prime median for input ${testData.input}`, () => {
+        isInputFieldVisible();
+        isSubmitButtonVisible();
+        insertValue(testData.input.toString());
+        requestCalculation();
+        getCalculationResults()
+          .invoke('text')
+          .should((result) => {
+            expect(result).to.match(resultsResponseMessage);
+            expect(result).to.match(resultsResponseArray);
+            expect(result).to.include(testData.result);
+          });
+      });
+    };
+
+    testData.map((item: testDataType) => {
+      item.isEnabled && availableTestCases(item);
+    });
   });
 });
