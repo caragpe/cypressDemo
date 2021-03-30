@@ -3,25 +3,29 @@ import {
   getCalculationResults,
   getLoadingSpinner,
   getWelcomeMessage,
-  insertValue,
+  insertAndSubmitValue,
   isInputFieldVisible,
   isSubmitButtonVisible,
-  requestCalculation,
 } from '../../support/pages/primesMedian';
 
 import {
+  alertMessageOnError,
+  componentMessage,
   edgeCaseResultResponse,
+  primeMedianEndpoint,
   testData,
   testEdgeData,
   testDataType,
   resultsResponseArray,
   resultsResponseMessage,
-  componentMessage,
+  stringEdgeCaseType,
+  stringEdgeCases,
 } from '../../support/testData/primeMedian.data';
 
 describe('Demo Prime Median Calculator', () => {
   beforeEach(() => {
     cy.visit('/');
+    cy.intercept('GET', primeMedianEndpoint).as('getResults');
   });
 
   context('Component', () => {
@@ -36,8 +40,9 @@ describe('Demo Prime Median Calculator', () => {
   context('Calculations', () => {
     const availableTestCases = (testData: testDataType) => {
       it(`prime median for input ${testData.input}`, () => {
-        insertValue(testData.input.toString());
-        requestCalculation();
+        insertAndSubmitValue(testData.input);
+        getLoadingSpinner();
+        cy.wait('@getResults');
         getCalculationResults()
           .invoke('text')
           .should((result) => {
@@ -49,16 +54,50 @@ describe('Demo Prime Median Calculator', () => {
     };
 
     const availableEdgeCases = (testEdgeData: testDataType) => {
-      it(`edge case for input ${testEdgeData.input}`, () => {
-        insertValue(testEdgeData.input.toString());
-        requestCalculation();
-        if (isInRange(testEdgeData.input)) {
-          getCalculationResults()
-            .invoke('text')
-            .should((result) => {
-              expect(result).to.match(edgeCaseResultResponse);
+      if (testEdgeData.input >= 0) {
+        it(`edge case for positive or 0 input ${testEdgeData.input}`, () => {
+          insertAndSubmitValue(testEdgeData.input);
+          getLoadingSpinner();
+          cy.wait('@getResults');
+          if (isInRange(testEdgeData.input)) {
+            getCalculationResults()
+              .invoke('text')
+              .should((result) => {
+                expect(result).to.match(edgeCaseResultResponse);
+              });
+          } else {
+            getCalculationResults().should('not.be.visible');
+            cy.on('window:alert', (msg) => {
+              expect(msg).to.be.equal(alertMessageOnError);
             });
-        }
+          }
+        });
+      } else {
+        it(`edge case for negative input ${testEdgeData.input}`, () => {
+          insertAndSubmitValue(testEdgeData.input);
+          getLoadingSpinner();
+          cy.wait('@getResults');
+          if (isInRange(testEdgeData.input)) {
+            getCalculationResults()
+              .invoke('text')
+              .should((result) => {
+                expect(result).to.match(edgeCaseResultResponse);
+              });
+          } else {
+            cy.on('window:alert', (msg) => {
+              expect(msg).to.be.equal(alertMessageOnError);
+            });
+          }
+        });
+      }
+    };
+
+    const availableStringEdgeCases = (testData: testDataType & stringEdgeCaseType) => {
+      it(`prime median for input "${testData.stringInput}"`, () => {
+        insertAndSubmitValue(testData.stringInput);
+        getLoadingSpinner();
+        getCalculationResults().should('not.be.visible');
+        cy.wait('@getResults').its('response.statusCode').should('eq', 404);
       });
     };
 
@@ -68,6 +107,10 @@ describe('Demo Prime Median Calculator', () => {
 
     testEdgeData.map((item: testDataType) => {
       item.isEnabled && item.isEdgeCase && availableEdgeCases(item);
+    });
+
+    stringEdgeCases.map((item: testDataType & stringEdgeCaseType) => {
+      item.isEnabled && item.isEdgeCase && availableStringEdgeCases(item);
     });
   });
 });
