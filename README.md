@@ -122,3 +122,18 @@ export tags='@toronto,@montreal'
 ```
 
 the test framework will only trigger those tests tagged with both `@toronto` and `@montreal` tags.
+
+
+## Application under test
+
+The application under test has been Dockerized and deployed to Heroku. Its `baseURl` can be found inside the `cypress.json` file as described above. This allows this demo to execute the test suite without anything else apart from this repository.
+
+## Considerations about the app under test
+- Usage of `[data-test]` attributes is a quick win that can speed test automation process by removing the need of using complex CSS selectors.
+- Server-side data validation to avoid accepting extreme values
+- Data validation to avoid returning a `[,]` value when negative numbers, 0 or 1.
+
+## Improvements on this projects
+- Combining reports from different test files into a single one.
+- Extracting `baseUrl` variable to allow testing on different environments. This demo simulates a single environment.
+- Injecting JSON reports into another test management framework to keep track of test execution. Azure Devops, for example, receives the Junit test results and automatically saves them for future, if the test scenario title remains the same, allowing time travelling.
