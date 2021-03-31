@@ -22,6 +22,42 @@ And execute the test!
 yarn start
 ```
 ![Cypress GUI](./documentation/cypress-gui.png)
+## General Usage
+
+- **Locally**
+    Run `yarn start` to open the Cypress GUI and manually select a test to run.
+    Run `yarn ci` to execute the tests headlessly.
+- **Pipeline**
+    Visit the [pipeline here](https://github.com/caragpe/cypressDemo/actions) to manually trigger a test execution
+
+### Pipeline usage
+
+Test execution can be trigger manually by accessing the pipeline and clicking on the blue `CI` button on the left and then on `Run workflow`.
+
+![Github actions](./documentation/github-actions.png)
+
+We will be able to select the branch, and also to pass the tag(s) for filtering the tests. By default, `@primesMedian` is set.
+
+If empty, remember that all test will be executed.
+
+#### Execution results
+
+By clicking on the different executions we can see the details of the test run, and access the reports:
+
+![Pipeline artifacst](./documentation/pipeline-artifacts.png)
+## Reporting
+
+Several reports are created in the folder `cypress/reports`:
+
+- **XML reports**
+This will create a (some) XML artifacts.
+- **JSON reports**
+Another format, depends on how are we going to consume this data.
+- **HTML report**
+For easy visualization. It will include screenshots of the errors (if any).
+
+
+All these reports, and any video recordings, will be uploaded as artifacts when the tests are executed in the pipeline.
 
 ## ESLint
 The official [ESLint plugin for Cypress](https://github.com/cypress-io/eslint-plugin-cypress) was installed to enforce [some of the best practices recommended for using Cypress](https://on.cypress.io/best-practices).
@@ -86,40 +122,3 @@ export tags='@toronto,@montreal'
 ```
 
 the test framework will only trigger those tests tagged with both `@toronto` and `@montreal` tags.
-
-## Usage
-
-- **Locally**
-    Run `yarn start` to open the Cypress GUI and manually select a test to run.
-    Run `yarn ci` to execute the tests headlessly.
-- **Pipeline**
-    Visit the [pipeline here](https://github.com/caragpe/cypressDemo/actions) to manually trigger a test execution
-
-### Pipeline usage
-
-Test execution can be trigger manually by accessing the pipeline and clicking on the blue `CI` button on the left and then on `Run workflow`.
-
-![Github actions](./documentation/github-actions.png)
-
-We will be able to select the branch, and also to pass the tag(s) for filtering the tests. By default, `@primesMedian` is set.
-
-If empty, remember that all test will be executed.
-
-#### Execution results
-
-By clicking on the different executions we can see the details of the test run, and access the reports:
-
-![Pipeline artifacst](./documentation/pipeline-artifacts.png)
-## Reporting
-
-Several reports are created in the folder `cypress/reports`:
-
-- **XML reports**
-This will create a (some) XML artifacts.
-- **JSON reports**
-Another format, depends on how are we going to consume this data.
-- **HTML report**
-For easy visualization. It will include screenshots of the errors (if any).
-
-
-All these reports, and any video recordings, will be uploaded as artifacts when the tests are executed in the pipeline.
