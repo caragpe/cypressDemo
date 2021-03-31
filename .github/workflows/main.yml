@@ -7,6 +7,8 @@ on:
     branches: [ master ]
 
   workflow_dispatch:
+    inputs:
+      tags: '@primesMedian'
 
 jobs:
   build:
@@ -23,7 +25,7 @@ jobs:
 
       - name: Run CI E2E scripts
         run: |
-          yarn ci
+          export tags={{ github.event.inputs.tags }} && yarn ci
 
       - name: Uploading video artifacts
         uses: actions/upload-artifact@v2
