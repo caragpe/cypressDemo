@@ -21,7 +21,7 @@ And execute the test!
 ```
 yarn start
 ```
-![Cypress GUI](./documentation/cypress-gui.png =400x)
+![Cypress GUI](./documentation/cypress-gui.png)
 
 ## ESLint
 The official [ESLint plugin for Cypress](https://github.com/cypress-io/eslint-plugin-cypress) was installed to enforce [some of the best practices recommended for using Cypress](https://on.cypress.io/best-practices).
