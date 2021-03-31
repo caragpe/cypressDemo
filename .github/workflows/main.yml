@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: cypress-e2e-video
-          path: cypressDemo/cypress/videos/demo/*.mp4
+          path: ./cypressDemo/cypress/videos/demo/*.mp4
