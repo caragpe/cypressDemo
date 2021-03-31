@@ -15,28 +15,29 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      TAGS: 'test'
 
     steps:
       - name: Checkout E2E repo
         uses: actions/checkout@v2
 
-      - name: Install Cypress dependencies
-        run: yarn install
-
-      - name: Run CI E2E scripts
+      - name: Testing tags
         run: |
-          export tags=${{ github.event.inputs.tags }} && yarn ci
+          run-s ${{ github.event.inputs.tags ? echo "yes": echo "no "}}
+      # - name: Install Cypress dependencies
+      #   run: yarn install
 
-      - name: Uploading video artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-e2e-video
-          path: ./cypress/videos/demo/*.mp4
+      # - name: Run CI E2E scripts
+      #   run: |
+      #     export tags=${{ github.event.inputs.tags }} && yarn ci
 
-      - name: Uploading report artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-e2e-report
-          path: ./cypress/reports/*
+      # - name: Uploading video artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: cypress-e2e-video
+      #     path: ./cypress/videos/demo/*.mp4
+
+      # - name: Uploading report artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: cypress-e2e-report
+      #     path: ./cypress/reports/*

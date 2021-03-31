@@ -117,7 +117,7 @@ filterTests(['@primesMedian'], () => {
       });
     });
   });
-}
+});
 
 const isInRange = (value: number, upperLimit = 100, lowerLimit = -100): boolean => {
   return value >= lowerLimit && value <= upperLimit;
