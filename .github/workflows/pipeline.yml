@@ -9,7 +9,7 @@ on:
     inputs:
       tags:
         description: 'Test to be executed by tag. If empty, all are run.'
-        required: true
+        required: false
         default: '@primesMedian'
 
 jobs:
