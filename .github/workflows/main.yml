@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ master ]
 
+  env:
+    tags: 'test'
   workflow_dispatch:
 
 jobs:
