@@ -8,7 +8,10 @@ on:
 
   workflow_dispatch:
     inputs:
-      tags: '@primesMedian'
+      tags:
+        description: 'Test to be executed by tag. If empty, all are run.'
+        required: 'true'
+        default: '@primesMedian'
 
 jobs:
   build:
