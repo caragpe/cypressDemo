@@ -20,24 +20,21 @@ jobs:
       - name: Checkout E2E repo
         uses: actions/checkout@v2
 
-      - name: Testing tags
+      - name: Install Cypress dependencies
+        run: yarn install
+
+      - name: Run CI E2E scripts
         run: |
-          run-s ${{ github.event.inputs.tags ? echo "yes": echo "no "}}
-      # - name: Install Cypress dependencies
-      #   run: yarn install
+          export tags="${{ github.event.inputs.tags }}:=''" && yarn ci
 
-      # - name: Run CI E2E scripts
-      #   run: |
-      #     export tags=${{ github.event.inputs.tags }} && yarn ci
+      - name: Uploading video artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-e2e-video
+          path: ./cypress/videos/demo/*.mp4
 
-      # - name: Uploading video artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: cypress-e2e-video
-      #     path: ./cypress/videos/demo/*.mp4
-
-      # - name: Uploading report artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: cypress-e2e-report
-      #     path: ./cypress/reports/*
+      - name: Uploading report artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-e2e-report
+          path: ./cypress/reports/*
