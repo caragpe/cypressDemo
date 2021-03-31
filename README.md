@@ -95,7 +95,21 @@ the test framework will only trigger those tests tagged with both `@toronto` and
 - **Pipeline**
     Visit the [pipeline here](https://github.com/caragpe/cypressDemo/actions) to manually trigger a test execution
 
+### Pipeline usage
 
+Test execution can be trigger manually by accessing the pipeline and clicking on the blue `CI` button on the left and then on `Run workflow`.
+
+![Github actions](./documentation/github-actions.png)
+
+We will be able to select the branch, and also to pass the tag(s) for filtering the tests. By default, `@primesMedian` is set.
+
+If empty, remember that all test will be executed.
+
+#### Execution results
+
+By clicking on the different executions we can see the details of the test run, and access the reports:
+
+![Pipeline artifacst](./documentation/pipeline-artifacts.png)
 ## Reporting
 
 Several reports are created in the folder `cypress/reports`:
