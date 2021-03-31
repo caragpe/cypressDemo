@@ -5,12 +5,11 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
   workflow_dispatch:
     inputs:
       tags:
         description: 'Test to be executed by tag. If empty, all are run.'
-        required: 'true'
+        required: true
         default: '@primesMedian'
 
 jobs:
