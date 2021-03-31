@@ -5,8 +5,12 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
   workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Test to be executed by tag. If empty, all are run.'
+        required: true
+        default: '@primesMedian'
 
 jobs:
   build:
@@ -21,7 +25,7 @@ jobs:
 
       - name: Run CI E2E scripts
         run: |
-          yarn ci
+          export tags="${{ github.event.inputs.tags }}:=''" && yarn ci
 
       - name: Uploading video artifacts
         uses: actions/upload-artifact@v2

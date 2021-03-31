@@ -13,7 +13,7 @@
     "typescript": "^4.2.3"
   },
   "scripts": {
-    "start": "cypress open",
+    "start": "cypress open --env tags=`echo $tags`",
     "ci": "cypress run --browser chrome --headless",
     "lint": "npx eslint --ignore-pattern 'cypress/integration/examples/*.js' --ext .ts,.js . ",
     "report:copyScreenshots": "cp -r cypress/screenshots cypress/reports/screenshots"
