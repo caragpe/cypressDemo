@@ -6,17 +6,18 @@
  * @param {[string]} definedTags An array of tags
  * @param {Function} runTest All tests captured within a Cypress run
  * @example yarn start --env tags=api
- * @example yarn start --env tags=api/ui
+ * @example yarn start --env tags=api,ui
  */
 const filterTests = (definedTags: string[], runTest: () => void): void => {
   if (Cypress.env('tags')) {
-    const tags = Cypress.env('tags').split('/');
+    const tags = Cypress.env('tags').split(',');
     const found = definedTags.some(($definedTag) => tags.includes($definedTag));
 
     if (found) {
       runTest();
     }
   } else {
+    // If no tags are defined, just run the test suite
     runTest();
   }
 };
