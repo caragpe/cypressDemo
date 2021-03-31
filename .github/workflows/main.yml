@@ -23,8 +23,14 @@ jobs:
         run: |
           yarn ci
 
-      - name: Uploading artifacts
+      - name: Uploading video artifacts
         uses: actions/upload-artifact@v2
         with:
           name: cypress-e2e-video
           path: ./cypress/videos/demo/*.mp4
+
+      - name: Uploading report artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-e2e-report
+          path: ./cypress/reports/*
