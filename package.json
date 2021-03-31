@@ -3,16 +3,25 @@
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "cypress": "^6.8.0",
+    "cypress-multi-reporters": "^1.4.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-prettier": "^3.3.1",
+    "mocha-junit-reporter": "^2.0.0",
     "prettier": "^2.2.1",
     "typescript": "^4.2.3"
   },
   "scripts": {
     "start": "cypress open",
     "ci": "cypress run --browser chrome --headless",
-    "lint": "npx eslint --ignore-pattern 'cypress/integration/examples/*.js' --ext .ts,.js . "
+    "lint": "npx eslint --ignore-pattern 'cypress/integration/examples/*.js' --ext .ts,.js . ",
+    "report:copyScreenshots": "cp -r cypress/screenshots cypress/reports/screenshots"
+  },
+  "dependencies": {
+    "mocha": "^8.3.2",
+    "mochawesome": "^6.2.2",
+    "mochawesome-report-generator": "^5.2.0",
+    "npm-run-all": "^4.1.5"
   }
 }

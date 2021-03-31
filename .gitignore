@@ -2,4 +2,7 @@ cypress/integration/examples
 node_modules
 *.log
 .idea
+cypress/.DS_Store
 cypress/fixtures/example.json
+cypress/reports
+cypress/videos
