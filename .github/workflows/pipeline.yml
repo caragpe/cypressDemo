@@ -25,7 +25,7 @@ jobs:
 
       - name: Run CI E2E scripts
         run: |
-          export tags="${{ github.event.inputs.tags }}:=''" && yarn ci
+          export tags='${{ github.event.inputs.tags }}' && yarn ci
 
       - name: Uploading video artifacts
         uses: actions/upload-artifact@v2
